@@ -70,6 +70,7 @@ class BaseSegmentor(BaseModule, metaclass=ABCMeta):
                 images in a batch.
         """
         for var, name in [(imgs, 'imgs'), (img_metas, 'img_metas')]:
+            # print(var,name)
             if not isinstance(var, list):
                 raise TypeError(f'{name} must be a list, but got '
                                 f'{type(var)}')
