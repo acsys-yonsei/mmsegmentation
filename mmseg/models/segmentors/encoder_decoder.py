@@ -251,7 +251,7 @@ class EncoderDecoder(BaseSegmentor):
 
         return output
 
-    def simple_test(self, img, img_meta, rescale=True):
+    def simple_test(self, img, img_meta, rescale=True, to_numpy=True):
         """Simple test with single image."""
         seg_logit = self.inference(img, img_meta, rescale)
         seg_pred = seg_logit.argmax(dim=1)
@@ -259,7 +259,8 @@ class EncoderDecoder(BaseSegmentor):
             # our inference backend only support 4D output
             seg_pred = seg_pred.unsqueeze(0)
             return seg_pred
-        seg_pred = seg_pred.cpu().numpy()
+        if to_numpy:
+            seg_pred = seg_pred.cpu().numpy() ###########
         # unravel batch dim
         seg_pred = list(seg_pred)
         return seg_pred
